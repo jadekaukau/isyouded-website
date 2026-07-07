@@ -213,13 +213,7 @@ h3 {
   box-shadow: 6px 6px 0 var(--black);
 }
 
-.sign-off {
-  margin-top: 56px;
-  margin-bottom: 0;
-  font-size: 1.3rem;
-  line-height: 1.35;
-  font-weight: 900;
-}
+
 
 .button:hover,
 .sound-toggle:hover,
