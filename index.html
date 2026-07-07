@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DED. helps you organise your wishes, important info and messages for the people you love." />
+  <title>DED. | End of life planning, made easier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <audio id="ded-audio" src="assets/ded-soundtrack.mp3" autoplay loop preload="auto" playsinline></audio>
+
+  <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Pause soundtrack">
+    Pause sound
+  </button>
+
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="DED home">DED.</a>
+    <nav aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#beta">Beta</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Planning ahead for when you're DED.</p>
+        <h1>DED.</h1>
+        <p class="lead">DED. helps you organise your wishes, important info and messages for the people you love.</p>
+      </div>
+
+      <div class="hero-visual">
+        <img src="assets/ded-logo.gif" alt="DED. smiling face logo" class="hero-logo" />
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-copy">
+        <p class="eyebrow">What is DED.?</p>
+        <h2>Life’s unpredictable.</h2>
+        <p class="big-copy">Do you really want your Mum to choose your funeral pic?</p>
+        <p>DED. helps you get the important stuff sorted before someone else has to.</p>
+      </div>
+
+      <div class="three-grid">
+        <article class="chunky-card">
+          <h3>Wishes</h3>
+          <p>Store what matters to you, from practical plans to personal preferences.</p>
+        </article>
+        <article class="chunky-card">
+          <h3>Important info</h3>
+          <p>Keep the details people may need together in one place.</p>
+        </article>
+        <article class="chunky-card">
+          <h3>Messages</h3>
+          <p>Leave words for the people you love, when they need them most.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="beta" class="beta-section">
+      <div class="beta-box">
+        <p class="eyebrow">Beta access</p>
+        <h2>Want to test DED.?</h2>
+        <p>We are making some final touches on our beta. Join the list and we will be in touch when testing opens.</p>
+        <a class="button primary big" href="https://forms.gle/ffepxH5SXRe6pMuR7" target="_blank" rel="noopener">Sign up for beta testing</a>
+        <p class="small-note">No spam. Just beta updates when there is something useful to share.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> DED. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
