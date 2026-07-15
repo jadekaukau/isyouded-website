@@ -1,44 +1,44 @@
-const audio = document.getElementById('ded-audio');
-const toggle = document.getElementById('sound-toggle');
+const audio = document.getElementById("ded-audio");
+const toggle = document.getElementById("sound-toggle");
 
-let isPlaying = false;
+audio.volume = 0.35;
 
 function updateButton() {
-  toggle.textContent = isPlaying ? '♫ ON' : '♫ OFF';
-  toggle.setAttribute('aria-label', isPlaying ? 'Pause soundtrack' : 'Play soundtrack');
+  const isPlaying = !audio.paused;
+
+  toggle.textContent = isPlaying ? "♫ ON" : "♫ OFF";
+  toggle.setAttribute(
+    "aria-label",
+    isPlaying ? "Pause soundtrack" : "Play soundtrack"
+  );
 }
 
-async function startAudio() {
-  try {
-    audio.volume = 0.35;
-    audio.muted = false;
-    await audio.play();
-    isPlaying = true;
-  } catch (error) {
-    isPlaying = false;
+toggle.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (error) {
+      console.error("Audio could not be played:", error);
+    }
+  } else {
+    audio.pause();
   }
 
   updateButton();
-}
-
-toggle.addEventListener('click', async () => {
-  if (audio.paused) {
-    await startAudio();
-  } else {
-    audio.pause();
-    isPlaying = false;
-    updateButton();
-  }
 });
 
-window.addEventListener('load', startAudio);
+audio.addEventListener("play", updateButton);
+audio.addEventListener("pause", updateButton);
+audio.addEventListener("ended", updateButton);
 
-document.addEventListener('pointerdown', () => {
-  if (audio.paused) startAudio();
-}, { once: true });
+window.addEventListener("load", async () => {
+  try {
+    await audio.play();
+  } catch (error) {
+    // Autoplay may be blocked until the visitor clicks the button.
+  }
 
-document.addEventListener('touchstart', () => {
-  if (audio.paused) startAudio();
-}, { once: true });
+  updateButton();
+});
 
 updateButton();
