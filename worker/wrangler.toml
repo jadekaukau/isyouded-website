@@ -5,8 +5,8 @@ compatibility_date = "2026-10-01"
 [vars]
 ALLOWED_ORIGINS = "https://isyouded.com,https://www.isyouded.com"
 # Paste the topic ids from Resend (Audience > Topics) here:
-WAITLIST_TOPIC_ID = ""
-DEDLINE_TOPIC_ID = ""
+WAITLIST_TOPIC_ID = "ed9b9795-3e26-448f-aee6-5d4918ddf619"
+DEDLINE_TOPIC_ID = "df3b7ab0-0514-410a-ba2f-d8c45b916cad"
 
 # RESEND_API_KEY is a secret. Set it with:
 #   npx wrangler secret put RESEND_API_KEY
