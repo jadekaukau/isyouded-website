@@ -1,17 +1,17 @@
 /**
  * DED. sign-up worker
  *
- * Receives the website's sign-up forms and adds the person to Resend:
- *   list "waitlist" -> the Resend segment named "waitlist"
- *   list "dedline"  -> the Resend segment named "ded.line subscribe"
+ * Receives the website's sign-up forms and opts the person in to a Resend Topic:
+ *   list "waitlist" -> the "Waitlist" topic
+ *   list "dedline"  -> the "Subscribe to DED.line" topic
  *
  * The Resend API key never touches the browser; it lives here as a secret.
  *
  * Secrets / variables (see README.md):
- *   RESEND_API_KEY        secret
- *   WAITLIST_SEGMENT_ID   id of the "waitlist" segment
- *   DEDLINE_SEGMENT_ID    id of the "ded.line subscribe" segment
- *   ALLOWED_ORIGINS       comma-separated, e.g. "https://isyouded.com,https://www.isyouded.com"
+ *   RESEND_API_KEY      secret
+ *   WAITLIST_TOPIC_ID   id of the "Waitlist" topic
+ *   DEDLINE_TOPIC_ID    id of the "Subscribe to DED.line" topic
+ *   ALLOWED_ORIGINS     comma-separated, e.g. "https://isyouded.com,https://www.isyouded.com"
  */
 
 const RESEND_API = "https://api.resend.com";
@@ -72,12 +72,12 @@ export default {
       return reply(400, { ok: false, error: "invalid_email" });
     }
 
-    const segmentId = {
-      waitlist: env.WAITLIST_SEGMENT_ID,
-      dedline: env.DEDLINE_SEGMENT_ID,
+    const topicId = {
+      waitlist: env.WAITLIST_TOPIC_ID,
+      dedline: env.DEDLINE_TOPIC_ID,
     }[list];
 
-    if (!segmentId) {
+    if (!topicId) {
       return reply(400, { ok: false, error: "unknown_list" });
     }
 
@@ -86,8 +86,10 @@ export default {
       "Content-Type": "application/json",
     };
 
-    // 1. Try to create the contact straight into the segment.
-    const contact = { email, unsubscribed: false, segments: [{ id: segmentId }] };
+    const optIn = [{ id: topicId, subscription: "opt_in" }];
+
+    // 1. Try to create the contact, opted in to this topic.
+    const contact = { email, unsubscribed: false, topics: optIn };
     if (firstName) contact.first_name = firstName;
 
     const created = await fetch(`${RESEND_API}/contacts`, {
@@ -105,19 +107,31 @@ export default {
       return reply(502, { ok: false, error: "upstream_error" });
     }
 
-    // 2. Contacts are global in Resend, so someone already on one list
-    //    (e.g. the waitlist) can't be created again. Add them to this segment instead.
-    const added = await fetch(
-      `${RESEND_API}/contacts/${encodeURIComponent(email)}/segments/${encodeURIComponent(segmentId)}`,
-      { method: "POST", headers }
-    );
+    // 2. Contacts are global in Resend, so someone already signed up for the other
+    //    topic can't be created again. Opt them in to this topic instead.
+    //    Resend's docs show both a { topics: [...] } body and a bare array, so try both.
+    const topicsUrl = `${RESEND_API}/contacts/${encodeURIComponent(email)}/topics`;
+
+    let added = await fetch(topicsUrl, {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify({ topics: optIn }),
+    });
+
+    if (!added.ok && added.status >= 400 && added.status < 500) {
+      added = await fetch(topicsUrl, {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify(optIn),
+      });
+    }
 
     if (added.ok) {
       return reply(200, { ok: true });
     }
 
     console.error(
-      "Resend add to segment failed",
+      "Resend topic opt-in failed",
       created.status,
       await created.text(),
       added.status,
