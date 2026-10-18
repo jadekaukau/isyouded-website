@@ -15,17 +15,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>DED. | Planning ahead for when you're DED.</title>
-
   <meta name="description" content="DED. is a death tech platform that helps you plan for dying, death and everything you'll leave behind." />
   <meta name="theme-color" content="#F96CAE">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 
-  <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
@@ -34,6 +32,29 @@
 </head>
 
 <body>
+  <header class="home-header">
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+  <nav class="site-menu" id="site-menu" aria-label="Main menu">
+    <div class="menu-inner">
+      <ul class="menu-links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="help.html">Help</a></li>
+        <li><a href="partners.html">Partners</a></li>
+      </ul>
+      <div>
+        <div class="menu-actions">
+          <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
+          <a class="button white" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+        </div>
+        <p class="menu-foot">Questions? <a href="mailto:hello@isyouded.com">hello@isyouded.com</a></p>
+      </div>
+    </div>
+  </nav>
+
   <audio id="ded-audio" src="assets/ded-soundtrack.mp3" autoplay loop preload="auto"></audio>
 
   <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Play soundtrack">
@@ -41,42 +62,45 @@
   </button>
 
   <main>
-    <section class="section hero hot-pink">
-      <div class="hero-copy">
-        <h1>DED.</h1>
-        <p class="tagline">Planning ahead for when you're DED.</p>
-        <a class="scroll-cue" href="#about" aria-label="Scroll down">↓</a>
-      </div>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-copy">
+          <h1 class="wordmark" aria-label="DED.">DED<span class="dot" aria-hidden="true"></span></h1>
+          <p class="tagline">Planning ahead for when you're DED.</p>
+        </div>
 
-      <div class="hero-face">
-        <img src="assets/ded-logo.gif" alt="DED. smiling face logo" />
+        <div class="hero-face">
+          <img src="assets/ded-logo.gif" alt="DED. face logo" width="500" height="500" />
+        </div>
       </div>
     </section>
 
-    <section id="about" class="section hot-pink">
+    <section class="intro" id="about">
       <div class="wrap">
         <div class="card intro-card">
           <div>
             <h2>Who is dealing with all your sh*t when you die?</h2>
-            <p class="body-copy">DED. is a death tech platform that helps you plan for dying, death and everything you'll leave behind.</p>
-            <p class="body-copy">From your final fit, pictures, music and all your important documents, plus instructions on how to make your final farewell feel like you.</p>
+            <p>DED. is a death tech platform that helps you plan for dying, death and everything you'll leave behind.</p>
+            <p>From your final fit, pictures, music and all your important documents, plus instructions on how to make your final farewell feel like you.</p>
           </div>
 
-          <div class="button-stack">
+          <div class="intro-buttons">
             <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
-            <a class="button pink" href="help.html">Have a question?</a>
+            <a class="button pink" href="faq.html">Have a question?</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section hot-pink" aria-label="What DED. does">
+    <section class="features" aria-label="What DED. does">
       <div class="wrap">
-        <div class="features">
+        <div class="feature-grid">
           <article class="card feature-card">
             <h3>Your funeral, your call</h3>
-            <p class="rotating-question" id="rotating-question" aria-live="off">What are you wearing?</p>
             <p>We ask the questions. You end up with a run sheet &amp; checklist your loved ones can actually use.</p>
+            <div class="ask">
+              <p class="rotating-question" id="rotating-question">What are you wearing?</p>
+            </div>
           </article>
 
           <article class="card feature-card">
@@ -92,36 +116,40 @@
       </div>
     </section>
 
-    <section class="section hot-pink" aria-label="Sign up">
-      <div class="cta-row">
-        <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
-        <a class="button pink" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+    <section class="cta" aria-label="Sign up">
+      <div class="wrap">
+        <div class="cta-row">
+          <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
+          <a class="button pink" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <nav class="footer-nav footer-social" aria-label="Social">
-      <!-- TODO: add real profile links, then uncomment.
-      <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Instagram ↗</a>
-      <a href="https://www.linkedin.com/company/YOUR_PAGE" target="_blank" rel="noopener">LinkedIn ↗</a>
-      -->
-      <a href="mailto:hello@isyouded.com">Email ↗</a>
-    </nav>
+    <div class="wrap">
+      <nav class="footer-nav footer-social" aria-label="Social">
+        <!-- TODO: add real profile links, then uncomment.
+        <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.linkedin.com/company/YOUR_PAGE" target="_blank" rel="noopener">LinkedIn ↗</a>
+        -->
+        <a href="mailto:hello@isyouded.com">Email ↗</a>
+      </nav>
 
-    <div class="footer-center">
-      <div class="footer-divider"></div>
-      <p class="footer-copy">© 2026 <strong>DED.</strong> All rights reserved.</p>
-      <p class="footer-beta">Currently in beta.</p>
+      <div class="footer-center">
+        <div class="footer-divider"></div>
+        <p class="footer-copy">© 2026 <span>DED.</span> All rights reserved.</p>
+        <p class="footer-beta">Currently in beta.</p>
+      </div>
+
+      <nav class="footer-nav footer-legal" aria-label="Legal">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:hello@isyouded.com">Contact</a>
+      </nav>
     </div>
-
-    <nav class="footer-nav footer-legal" aria-label="Footer navigation">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="help.html">Contact</a>
-    </nav>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
