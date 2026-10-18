@@ -1,0 +1,12 @@
+name = "ded-signup"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://isyouded.com,https://www.isyouded.com"
+# Paste the segment ids from Resend (Audience > Segments) here:
+WAITLIST_SEGMENT_ID = ""
+DEDLINE_SEGMENT_ID = ""
+
+# RESEND_API_KEY is a secret. Set it with:
+#   npx wrangler secret put RESEND_API_KEY

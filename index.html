@@ -16,12 +16,12 @@
 
   <title>DED. | Planning ahead for when you're DED.</title>
 
-  <meta name="description" content="DED. helps you organise your wishes, important information and messages for the people you love." />
+  <meta name="description" content="DED. is a death tech platform that helps you plan for dying, death and everything you'll leave behind." />
   <meta name="theme-color" content="#F96CAE">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -43,9 +43,8 @@
   <main>
     <section class="section hero hot-pink">
       <div class="hero-copy">
-        <p class="eyebrow">Planning ahead for when you're DED.</p>
         <h1>DED.</h1>
-        <p class="intro-copy">Organise your wishes, important information and messages for the people you love.</p>
+        <p class="tagline">Planning ahead for when you're DED.</p>
         <a class="scroll-cue" href="#about" aria-label="Scroll down">↓</a>
       </div>
 
@@ -54,69 +53,72 @@
       </div>
     </section>
 
-    <section id="about" class="section about soft-pink">
-      <div class="narrow">
-        <p class="eyebrow">What is DED.?</p>
-        <h2>Life's unpredictable.</h2>
-        <p class="question">Do you really want your Mum to choose your funeral pic?</p>
-        <p class="body-copy">DED. helps you get the important stuff sorted before someone else has to.</p>
+    <section id="about" class="section hot-pink">
+      <div class="wrap">
+        <div class="card intro-card">
+          <div>
+            <h2>Who is dealing with all your sh*t when you die?</h2>
+            <p class="body-copy">DED. is a death tech platform that helps you plan for dying, death and everything you'll leave behind.</p>
+            <p class="body-copy">From your final fit, pictures, music and all your important documents, plus instructions on how to make your final farewell feel like you.</p>
+          </div>
+
+          <div class="button-stack">
+            <a class="button" href="https://forms.gle/ffepxH5SXRe6pMuR7" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
+            <a class="button pink" href="help.html">Have a question?</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="section features hot-pink">
-      <article class="feature-card">
-        <span class="icon">♡</span>
-        <h3>Your wishes</h3>
-        <p>Funeral preferences, music, photos and the things you want people to know.</p>
-      </article>
+    <section class="section hot-pink" aria-label="What DED. does">
+      <div class="wrap">
+        <div class="features">
+          <article class="card feature-card">
+            <h3>Your funeral, your call</h3>
+            <p class="rotating-question" id="rotating-question" aria-live="off">What are you wearing?</p>
+            <p>We ask the questions. You end up with a run sheet &amp; checklist your loved ones can actually use.</p>
+          </article>
 
-      <article class="feature-card">
-        <span class="icon">▣</span>
-        <h3>Important info</h3>
-        <p>Useful details in one place, so your people are not left searching.</p>
-      </article>
+          <article class="card feature-card">
+            <h3>Where's the password?</h3>
+            <p>Documents, accounts and loose ends, all in one place they can find.</p>
+          </article>
 
-      <article class="feature-card">
-        <span class="icon">✉</span>
-        <h3>Messages</h3>
-        <p>Words for the people you love, ready for when they need them.</p>
-      </article>
+          <article class="card feature-card">
+            <h3>Say it before you go</h3>
+            <p>Write letters to your people, and choose who sees your plan when it counts.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-       <section class="section beta soft-pink">
-      <div class="narrow">
-        <p class="eyebrow">Beta access</p>
-        <h2>We're building DED.</h2>
-        <p class="body-copy">
-          Want to help shape it? Join the beta list and we'll be in touch when testing opens.
-        </p>
-        <a
-          class="button"
-          href="https://forms.gle/ffepxH5SXRe6pMuR7"
-          target="_blank"
-          rel="noopener"
-        >
-          Join beta
-        </a>
+    <section class="section hot-pink" aria-label="Sign up">
+      <div class="cta-row">
+        <a class="button" href="https://forms.gle/ffepxH5SXRe6pMuR7" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
+        <a class="button pink" href="mailto:hello@isyouded.com?subject=Subscribe%20me%20to%20DED.line" data-signup="dedline">Subscribe</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-divider"></div>
+    <nav class="footer-nav footer-social" aria-label="Social">
+      <!-- TODO: add real profile links, then uncomment.
+      <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="https://www.linkedin.com/company/YOUR_PAGE" target="_blank" rel="noopener">LinkedIn ↗</a>
+      -->
+      <a href="mailto:hello@isyouded.com">Email ↗</a>
+    </nav>
 
-    <p class="footer-copy">
-      © 2026 <strong>DED.</strong> All rights reserved.
-    </p>
+    <div class="footer-center">
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© 2026 <strong>DED.</strong> All rights reserved.</p>
+      <p class="footer-beta">Currently in beta.</p>
+    </div>
 
-    <p class="footer-beta">
-      Currently in beta.
-    </p>
-
-    <nav class="footer-nav" aria-label="Footer navigation">
+    <nav class="footer-nav footer-legal" aria-label="Footer navigation">
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-      <a href="mailto:hello@isyouded.com">Contact</a>
+      <a href="help.html">Contact</a>
     </nav>
   </footer>
 
