@@ -9,7 +9,7 @@ const SIGNUP_ENDPOINT = "";
 /* Tally forms, opened as pop-ups. Add the DED.line form id when it exists. */
 const TALLY_FORMS = {
   waitlist: "5XKYGP",
-  dedline: "",
+  dedline: "o96ZVM",
 };
 
 /* =========================
