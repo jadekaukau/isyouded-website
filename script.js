@@ -6,6 +6,12 @@
 ========================= */
 const SIGNUP_ENDPOINT = "";
 
+/* Tally forms, opened as pop-ups. Add the DED.line form id when it exists. */
+const TALLY_FORMS = {
+  waitlist: "5XKYGP",
+  dedline: "",
+};
+
 /* =========================
    SOUNDTRACK
 ========================= */
@@ -91,7 +97,7 @@ const MENU_LINKS = [
   });
 
   const join = document.createElement("a");
-  join.href = "https://forms.gle/ffepxH5SXRe6pMuR7";
+  join.href = "https://tally.so/r/5XKYGP";
   join.target = "_blank";
   join.rel = "noopener";
   join.dataset.signup = "waitlist";
@@ -279,23 +285,50 @@ function buildDialog(list) {
   return dialog;
 }
 
-if (SIGNUP_ENDPOINT && typeof HTMLDialogElement === "function") {
-  const dialogs = {};
+/* Load Tally's pop-up script once, if any Tally form is set up. */
+if (Object.values(TALLY_FORMS).some(Boolean)) {
+  const tallyScript = document.createElement("script");
+  tallyScript.src = "https://tally.so/widgets/embed.js";
+  tallyScript.async = true;
+  document.head.appendChild(tallyScript);
+}
 
-  document.addEventListener("click", (event) => {
-    const trigger = event.target.closest("[data-signup]");
-    if (!trigger) return;
+const dialogs = {};
 
-    const list = trigger.dataset.signup;
-    if (!FORMS[list]) return;
+document.addEventListener("click", (event) => {
+  const trigger = event.target.closest("[data-signup]");
+  if (!trigger) return;
 
+  const list = trigger.dataset.signup;
+  const tallyId = TALLY_FORMS[list];
+
+  // 1. Tally pop-up, when that list has a Tally form and the script has loaded.
+  if (tallyId && window.Tally) {
+    event.preventDefault();
+    document.body.classList.remove("menu-open");
+    window.Tally.openPopup(tallyId, {
+      layout: "modal",
+      width: 520,
+      overlay: true,
+      hideTitle: true,
+      onSubmit: () => {
+        if (typeof gtag === "function") gtag("event", "sign_up", { method: list });
+      },
+    });
+    return;
+  }
+
+  // 2. Our own form, when the Resend worker is set up.
+  if (!tallyId && SIGNUP_ENDPOINT && FORMS[list] && typeof HTMLDialogElement === "function") {
     event.preventDefault();
     document.body.classList.remove("menu-open");
     dialogs[list] = dialogs[list] || buildDialog(list);
     dialogs[list].showModal();
     dialogs[list].querySelector('input[name="first_name"]').focus();
-  });
-}
+  }
+
+  // 3. Otherwise the link's own href (the Tally page, or an email for DED.line).
+});
 
 /* =========================
    SEARCH + TOPIC FILTERS (FAQ, Help, Partners)
