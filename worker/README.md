@@ -23,7 +23,7 @@ If someone is already a contact (for example, on the waitlist and now subscribin
 3. **Website**
    - Put that URL in `SIGNUP_ENDPOINT` at the top of `script.js` and push.
 
-Until `SIGNUP_ENDPOINT` is set, the site falls back to the old behaviour: "Join the waitlist" opens the Google Form and "Subscribe" opens an email to hello@isyouded.com.
+The site currently uses Tally pop-ups for both forms (see `TALLY_FORMS` in `script.js`). To use this worker instead, set `SIGNUP_ENDPOINT` and clear the Tally form ids.
 
 ## Sending emails
 
