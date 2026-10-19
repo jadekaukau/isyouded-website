@@ -65,47 +65,10 @@ if (audio && toggle) {
 /* =========================
    MENU
 ========================= */
-const MENU_LINKS = [
-  ["Home", "index.html"],
-  ["FAQs", "faq.html"],
-  ["Help", "help.html"],
-  ["Partners", "partners.html"],
-];
-
-(function buildMenu() {
-  const button = document.createElement("button");
-  button.className = "menu-toggle";
-  button.type = "button";
-  button.setAttribute("aria-label", "Open menu");
-  button.setAttribute("aria-expanded", "false");
-  button.setAttribute("aria-controls", "site-menu");
-  button.innerHTML = "<span></span><span></span><span></span>";
-
-  const nav = document.createElement("nav");
-  nav.className = "site-menu";
-  nav.id = "site-menu";
-  nav.setAttribute("aria-label", "Main menu");
-
-  const here = location.pathname.split("/").pop() || "index.html";
-
-  MENU_LINKS.forEach(([label, href]) => {
-    const link = document.createElement("a");
-    link.href = href;
-    link.textContent = label;
-    if (href === here) link.setAttribute("aria-current", "page");
-    nav.appendChild(link);
-  });
-
-  const join = document.createElement("a");
-  join.href = "https://tally.so/r/5XKYGP";
-  join.target = "_blank";
-  join.rel = "noopener";
-  join.dataset.signup = "waitlist";
-  join.textContent = "Join the waitlist";
-  nav.appendChild(join);
-
-  document.body.prepend(nav);
-  document.body.prepend(button);
+(function menu() {
+  const button = document.querySelector(".menu-toggle");
+  const nav = document.getElementById("site-menu");
+  if (!button || !nav) return;
 
   const setOpen = (open) => {
     document.body.classList.toggle("menu-open", open);
