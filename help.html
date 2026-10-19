@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
@@ -51,7 +51,7 @@
       <div>
         <div class="menu-actions">
           <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
-          <a class="button white" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+          <a class="button white" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe to newsletter</a>
         </div>
         <p class="menu-foot">Questions? <a href="mailto:hello@isyouded.com">hello@isyouded.com</a></p>
       </div>
@@ -63,10 +63,15 @@
       <div class="page-head">
         <div>
           <h1>Need help?</h1>
-          <p class="body-copy">We might have covered your needs below. If not, get in touch at <a href="mailto:hello@isyouded.com">hello@isyouded.com</a>.</p>
+          <p class="body-copy">We might have covered your needs below. If not, <a href="#contact">get in touch</a>.</p>
         </div>
         <label class="visually-hidden" for="help-search">Search help</label>
         <input class="search" id="help-search" type="search" placeholder="Search" />
+      </div>
+
+      <div class="card beta-note">
+        <p class="beta-tag">In beta</p>
+        <p><strong>DED. is in private beta, and accounts are invite-only for now.</strong> This guide is for our beta testers. Not in yet? <a href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a> and we'll send you an invite when a spot opens.</p>
       </div>
 
       <div class="pills" role="group" aria-label="Filter by topic">
@@ -80,10 +85,15 @@
         <h2 class="group-title">Getting started</h2>
         <div class="qa-list">
           <details class="card qa" data-topic="start">
-            <summary>Creating your account</summary>
+            <summary>Can I sign up yet?</summary>
             <div class="answer">
-              <p>Sign up with your email and a password, then check your inbox for a verification link. Once you've verified, you're in.</p>
-              <p>If the email doesn't arrive, check your junk folder, then try again from the sign-in page.</p>
+              <p>Not yet. DED. is in private beta and we're letting people in a few at a time. <a href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a> and we'll email you an invite when it's your turn.</p>
+            </div>
+          </details>
+          <details class="card qa" data-topic="start">
+            <summary>Got your invite? Setting up your account</summary>
+            <div class="answer">
+              <p>Follow the link in your invite email, sign up with your email and a password, then verify your email. Can't find the verification email? Check your junk folder.</p>
             </div>
           </details>
           <details class="card qa" data-topic="start">
@@ -122,6 +132,7 @@
             <div class="answer">
               <p>Your funeral wishes (body, resting place, service, music, speakers, photos and rules for the day), your important documents and accounts, the loose ends only you know about, and letters for your people.</p>
               <p>It also covers who and what relies on you: kids, pets and other dependants.</p>
+              <p>DED. is in beta, so some of this is still being built and may change.</p>
             </div>
           </details>
           <details class="card qa" data-topic="plan">
@@ -229,20 +240,19 @@
 
       <p class="empty-note" hidden>Nothing matches that. Email <a href="mailto:hello@isyouded.com">hello@isyouded.com</a> and we'll help.</p>
 
-      <div class="card contact-card">
+      <div class="card contact-card" id="contact">
         <h3>Still stuck?</h3>
         <p class="body-copy">Email us at <a href="mailto:hello@isyouded.com">hello@isyouded.com</a> and a real human will get back to you.</p>
+        <p class="pitch-note">Pitching web design, development, SEO or marketing? Thanks, but we're sorted. Those emails won't get a reply.</p>
       </div>
-    </div>
+</div>
   </main>
 
   <footer class="footer">
     <div class="wrap">
       <nav class="footer-nav footer-social" aria-label="Social">
-        <!-- TODO: add real profile links, then uncomment.
-        <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Instagram ↗</a>
-        <a href="https://www.linkedin.com/company/YOUR_PAGE" target="_blank" rel="noopener">LinkedIn ↗</a>
-        -->
+        <a href="https://www.instagram.com/ded_planning/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.linkedin.com/company/ded-end-of-life-planning/" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="mailto:hello@isyouded.com">Email ↗</a>
       </nav>
 
@@ -255,11 +265,11 @@
       <nav class="footer-nav footer-legal" aria-label="Legal">
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
-        <a href="mailto:hello@isyouded.com">Contact</a>
+        <a href="help.html#contact">Contact</a>
       </nav>
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

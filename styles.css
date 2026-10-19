@@ -709,6 +709,47 @@ img {
   line-height: 1.5;
 }
 
+.beta-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-bottom: 34px;
+  padding: 20px 24px;
+  background: var(--white);
+}
+
+.beta-note p {
+  flex: 1 1 260px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.beta-note .beta-tag {
+  flex: none;
+  padding: 6px 14px;
+  border: var(--line);
+  border-radius: 999px;
+  background: var(--blue);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.pitch-note {
+  margin-top: 14px !important;
+  padding-top: 14px;
+  border-top: 2px dashed rgba(5, 5, 5, 0.35);
+  font-size: 0.95rem !important;
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+#contact {
+  scroll-margin-top: 110px;
+}
+
 .partner-grid {
   display: grid;
   gap: 26px;

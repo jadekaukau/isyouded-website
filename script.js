@@ -90,46 +90,76 @@ if (audio && toggle) {
 })();
 
 /* =========================
-   ROTATING QUESTIONS
+   ROTATING CALLOUTS (home page cards)
 ========================= */
-const QUESTIONS = [
-  "What are you wearing?",
-  "Buried, cremated, or something stranger?",
-  "Where do you want to end up?",
-  "Open casket or closed?",
-  "What song do you go out to?",
-  "Who gets the mic, and who definitely doesn't?",
-  "Organ donor?",
-  "Any rules for the day? Mandatory karaoke?",
-  "Party or proper service?",
-  "Which photos? And which ones are banned?",
-  "Embalmed, or au naturel?",
-];
+const CALLOUTS = {
+  funeral: [
+    "What are you wearing?",
+    "Buried, cremated, or something stranger?",
+    "Where do you want to end up?",
+    "Open casket or closed?",
+    "What song do you go out to?",
+    "Who gets the mic, and who definitely doesn't?",
+    "Organ donor?",
+    "Any rules for the day? Mandatory karaoke?",
+    "Party or proper service?",
+    "Which photos? And which ones are banned?",
+    "Embalmed, or au naturel?",
+  ],
+  vault: [
+    "Where's the will?",
+    "Who has the Netflix login?",
+    "Which bank are you with?",
+    "Where are the spare keys?",
+    "Any debts we should know about?",
+    "What's the laptop password?",
+    "Is there life insurance?",
+    "What happens to your socials?",
+    "Who's cancelling the gym membership?",
+  ],
+  letters: [
+    "Anything you never got round to saying?",
+    "What do you want them to remember?",
+    "A note for the kids?",
+    "Who gets the last word?",
+    "Who's running the show on the day?",
+    "Who should see your plan?",
+    "Something to read at the funeral?",
+  ],
+};
 
-(function rotateQuestions() {
-  const el = document.getElementById("rotating-question");
-  if (!el) return;
+(function rotateCallouts() {
+  const bubbles = Array.from(document.querySelectorAll("[data-rotate]"))
+    .filter((el) => CALLOUTS[el.dataset.rotate]);
+  if (!bubbles.length) return;
 
-  let index = 0;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const interval = reduceMotion ? 6000 : 3500;
+  const positions = bubbles.map(() => 0);
+  let turn = 0;
 
+  // One card changes at a time, taking turns, so they never all flip at once.
   setInterval(() => {
     if (document.hidden) return;
 
-    index = (index + 1) % QUESTIONS.length;
+    const i = turn % bubbles.length;
+    turn += 1;
+
+    const el = bubbles[i];
+    const list = CALLOUTS[el.dataset.rotate];
+    positions[i] = (positions[i] + 1) % list.length;
+    const next = list[positions[i]];
 
     if (reduceMotion) {
-      el.textContent = QUESTIONS[index];
+      el.textContent = next;
       return;
     }
 
     el.classList.add("is-out");
     setTimeout(() => {
-      el.textContent = QUESTIONS[index];
+      el.textContent = next;
       el.classList.remove("is-out");
-    }, 350);
-  }, interval);
+    }, 320);
+  }, reduceMotion ? 3000 : 1700);
 })();
 
 /* =========================
