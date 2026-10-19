@@ -267,7 +267,7 @@ function buildDialog(list) {
         gtag("event", "sign_up", { method: list });
       }
     } catch (error) {
-      status.textContent = "Something went wrong. Try again, or email hello@isyouded.com.";
+      status.textContent = "Something went wrong. Try again, or use the email on our Help page.";
       status.classList.add("error");
     } finally {
       submit.disabled = false;
@@ -368,3 +368,15 @@ document.addEventListener("click", (event) => {
 
   if (search) search.addEventListener("input", apply);
 })();
+
+/* =========================
+   EMAIL LINKS
+   The address is split up in the HTML so spam bots scraping the page
+   can't read it. This puts it back together for real visitors.
+========================= */
+document.querySelectorAll("[data-email]").forEach((link) => {
+  const [user, domain] = link.dataset.email.split("|");
+  const address = `${user}@${domain}`;
+  link.href = `mailto:${address}${link.dataset.query || ""}`;
+  if (link.textContent.includes("[at]")) link.textContent = address;
+});
