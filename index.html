@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
@@ -48,9 +48,9 @@
       <div>
         <div class="menu-actions">
           <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
-          <a class="button white" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+          <a class="button white" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe to newsletter</a>
         </div>
-        <p class="menu-foot">Questions? <a href="mailto:hello@isyouded.com">hello@isyouded.com</a></p>
+        <p class="menu-foot">Questions? <a href="help.html#contact" data-email="hello|isyouded.com" data-query="">hello [at] isyouded [dot] com</a></p>
       </div>
     </div>
   </nav>
@@ -99,18 +99,24 @@
             <h3>Your funeral, your call</h3>
             <p>We ask the questions. You end up with a run sheet &amp; checklist your loved ones can actually use.</p>
             <div class="ask">
-              <p class="rotating-question" id="rotating-question">What are you wearing?</p>
+              <p class="rotating-question" data-rotate="funeral">What are you wearing?</p>
             </div>
           </article>
 
           <article class="card feature-card">
             <h3>Where's the password?</h3>
             <p>Documents, accounts and loose ends, all in one place they can find.</p>
+            <div class="ask">
+              <p class="rotating-question" data-rotate="vault">Where's the will?</p>
+            </div>
           </article>
 
           <article class="card feature-card">
             <h3>Say it before you go</h3>
             <p>Write letters to your people, and choose who sees your plan when it counts.</p>
+            <div class="ask">
+              <p class="rotating-question" data-rotate="letters">Anything you never got round to saying?</p>
+            </div>
           </article>
         </div>
       </div>
@@ -120,7 +126,7 @@
       <div class="wrap">
         <div class="cta-row">
           <a class="button" href="https://tally.so/r/5XKYGP" target="_blank" rel="noopener" data-signup="waitlist">Join the waitlist</a>
-          <a class="button pink" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe</a>
+          <a class="button pink" href="https://tally.so/r/o96ZVM" target="_blank" rel="noopener" data-signup="dedline">Subscribe to newsletter</a>
         </div>
       </div>
     </section>
@@ -129,11 +135,9 @@
   <footer class="footer">
     <div class="wrap">
       <nav class="footer-nav footer-social" aria-label="Social">
-        <!-- TODO: add real profile links, then uncomment.
-        <a href="https://www.instagram.com/YOUR_HANDLE" target="_blank" rel="noopener">Instagram ↗</a>
-        <a href="https://www.linkedin.com/company/YOUR_PAGE" target="_blank" rel="noopener">LinkedIn ↗</a>
-        -->
-        <a href="mailto:hello@isyouded.com">Email ↗</a>
+        <a href="https://www.instagram.com/ded_planning/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.linkedin.com/company/ded-end-of-life-planning/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="help.html#contact" data-email="hello|isyouded.com" data-query="">Email ↗</a>
       </nav>
 
       <div class="footer-center">
@@ -145,11 +149,11 @@
       <nav class="footer-nav footer-legal" aria-label="Legal">
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
-        <a href="mailto:hello@isyouded.com">Contact</a>
+        <a href="help.html#contact">Contact</a>
       </nav>
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
