@@ -9,6 +9,8 @@ Property: **G-5WCCEEQ6JL**. The Google tag is on every page; the events below ar
 | `signup_abandon` | Someone opens the waitlist or newsletter form but closes it without signing up | `list` |
 | `partner_enquiry` | Click on the partners email link on the Partners page | `location`, `page` |
 | `links_click` | A button on isyouded.com/links (the Instagram bio page) is tapped | `link`: website, faq, partners, logo |
+| `article_click` | An article is tapped on the Articles page | `article` |
+| `article_read` | Someone scrolls to the end of an article | `article`, `page` |
 | `social_click` | Click on Instagram or LinkedIn | `platform`, `location`, `page` |
 | `email_click` | Click on the hello@ email link | `location`, `page` |
 | `cta_click` | Click on a button to the FAQ or Help page ("Have a question?") | `cta` (button text), `location`, `page` |
@@ -23,7 +25,7 @@ GA also records page views, scrolls and outbound clicks on its own (Enhanced mea
 ## One-off setup in Google Analytics
 
 1. **Admin → Events → mark `sign_up` as a key event.** This is the number that matters most.
-2. **Admin → Custom definitions → Create custom dimension** (event-scoped) for each of these, so they show up in reports: `list`, `location`, `page`, `platform`, `question`, `topic`, `method`.
+2. **Admin → Custom definitions → Create custom dimension** (event-scoped) for each of these, so they show up in reports: `list`, `location`, `page`, `platform`, `question`, `topic`, `link`, `article`.
 3. Check it's working: **Reports → Realtime**, or **Admin → DebugView** with the GA Debugger browser extension on.
 
 The custom dimensions only collect from the day they're created, so set them up straight away.
