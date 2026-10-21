@@ -370,6 +370,99 @@ document.addEventListener("click", (event) => {
 })();
 
 /* =========================
+   ANALYTICS (Google Analytics 4, G-5WCCEEQ6JL)
+   Sends events to GA when people do things that matter.
+   Event names and what they mean are listed in ANALYTICS.md.
+========================= */
+function track(name, params) {
+  if (typeof gtag === "function") gtag("event", name, params || {});
+}
+
+// Where on the page something was clicked: menu, hero, intro, features, cta, footer, faq…
+function placeOf(el) {
+  if (el.closest(".site-menu")) return "menu";
+  if (el.closest("footer")) return "footer";
+  const section = el.closest("section, details");
+  if (section && section.tagName === "DETAILS") return "answer";
+  if (section) return section.id || section.classList[0] || "page";
+  return "page";
+}
+
+const PAGE = (location.pathname.split("/").pop() || "index.html").replace(".html", "") || "index";
+
+document.addEventListener("click", (event) => {
+  const el = event.target.closest("a, button");
+  if (!el) return;
+
+  // Waitlist / newsletter buttons (before the form opens)
+  if (el.dataset.signup) {
+    track("signup_click", { list: el.dataset.signup, location: placeOf(el), page: PAGE });
+    return;
+  }
+
+  const href = el.getAttribute("href") || "";
+
+  // Social links
+  if (href.includes("instagram.com")) return track("social_click", { platform: "instagram", location: placeOf(el), page: PAGE });
+  if (href.includes("linkedin.com")) return track("social_click", { platform: "linkedin", location: placeOf(el), page: PAGE });
+
+  // Email links
+  if (el.dataset.email || href.startsWith("mailto:")) {
+    return track("email_click", { location: placeOf(el), page: PAGE });
+  }
+
+  // "Have a question?" and other buttons to the FAQ / Help
+  if (el.classList.contains("button") && /(faq|help)\.html/.test(href)) {
+    return track("cta_click", { cta: el.textContent.trim().slice(0, 60), location: placeOf(el), page: PAGE });
+  }
+
+  // Menu open (the menu's own click handler has already run, so "open" means it just opened)
+  if (el.classList.contains("menu-toggle") && document.body.classList.contains("menu-open")) {
+    return track("menu_open", { page: PAGE });
+  }
+
+  // Topic filter pills (FAQ, Help, Partners)
+  if (el.classList.contains("pill") && el.dataset.filter) {
+    return track("filter_topic", { topic: el.dataset.filter, page: PAGE });
+  }
+
+  // Soundtrack on/off
+  if (el.id === "sound-toggle") {
+    const audioEl = document.getElementById("ded-audio");
+    // The click handler above runs first, so read the state just after it.
+    setTimeout(() => track("soundtrack_toggle", { state: audioEl && !audioEl.paused ? "on" : "off" }), 0);
+  }
+});
+
+// Which questions people open on the FAQ and Help pages
+document.querySelectorAll("details").forEach((item) => {
+  item.addEventListener("toggle", () => {
+    if (!item.open) return;
+    const summary = item.querySelector("summary");
+    track("faq_open", {
+      question: (summary ? summary.textContent : "").trim().slice(0, 100),
+      topic: item.dataset.topic || "",
+      page: PAGE,
+    });
+  });
+});
+
+// What people search for on the FAQ, Help and Partners pages (sent once they stop typing)
+document.querySelectorAll("input.search").forEach((input) => {
+  let timer;
+  let last = "";
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const term = input.value.trim().toLowerCase();
+      if (term.length < 3 || term === last) return;
+      last = term;
+      track("search", { search_term: term.slice(0, 100), page: PAGE });
+    }, 1200);
+  });
+});
+
+/* =========================
    EMAIL LINKS
    The address is split up in the HTML so spam bots scraping the page
    can't read it. This puts it back together for real visitors.
