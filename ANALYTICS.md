@@ -6,6 +6,8 @@ Property: **G-5WCCEEQ6JL**. The Google tag is on every page; the events below ar
 |---|---|---|
 | `sign_up` | Someone **submits** the waitlist or newsletter form | `method`: `waitlist` or `dedline` |
 | `signup_click` | Someone clicks a "Join the waitlist" or "Subscribe to newsletter" button | `list`, `location` (menu, about, cta, answer…), `page` |
+| `signup_abandon` | Someone opens the waitlist or newsletter form but closes it without signing up | `list` |
+| `partner_enquiry` | Click on the partners email link on the Partners page | `location`, `page` |
 | `social_click` | Click on Instagram or LinkedIn | `platform`, `location`, `page` |
 | `email_click` | Click on the hello@ email link | `location`, `page` |
 | `cta_click` | Click on a button to the FAQ or Help page ("Have a question?") | `cta` (button text), `location`, `page` |
@@ -24,3 +26,16 @@ GA also records page views, scrolls and outbound clicks on its own (Enhanced mea
 3. Check it's working: **Reports → Realtime**, or **Admin → DebugView** with the GA Debugger browser extension on.
 
 The custom dimensions only collect from the day they're created, so set them up straight away.
+
+## Tagging links (UTMs)
+
+Add these to links you share, so GA shows where visitors came from:
+
+| Where | Link |
+|---|---|
+| Instagram bio | `https://isyouded.com/?utm_source=instagram&utm_medium=social&utm_campaign=bio` |
+| Instagram story / post | `https://isyouded.com/?utm_source=instagram&utm_medium=social&utm_campaign=<post-name>` |
+| LinkedIn | `https://isyouded.com/?utm_source=linkedin&utm_medium=social&utm_campaign=<post-name>` |
+| Resend emails | `https://isyouded.com/?utm_source=resend&utm_medium=email&utm_campaign=<email-name>` |
+
+Keep everything lowercase, with underscores instead of spaces.

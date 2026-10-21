@@ -299,13 +299,22 @@ document.addEventListener("click", (event) => {
   if (tallyId && window.Tally) {
     event.preventDefault();
     document.body.classList.remove("menu-open");
+    let submitted = false;
     window.Tally.openPopup(tallyId, {
       layout: "modal",
       width: 520,
       overlay: true,
       hideTitle: true,
+      onOpen: () => {
+        submitted = false;
+      },
       onSubmit: () => {
+        submitted = true;
         if (typeof gtag === "function") gtag("event", "sign_up", { method: list });
+      },
+      onClose: () => {
+        // Opened the form but closed it without signing up
+        if (!submitted && typeof gtag === "function") gtag("event", "signup_abandon", { list });
       },
     });
     return;
@@ -405,6 +414,11 @@ document.addEventListener("click", (event) => {
   // Social links
   if (href.includes("instagram.com")) return track("social_click", { platform: "instagram", location: placeOf(el), page: PAGE });
   if (href.includes("linkedin.com")) return track("social_click", { platform: "linkedin", location: placeOf(el), page: PAGE });
+
+  // Partner enquiries (the email link on the Partners page that opens with the "DED. partners" subject)
+  if ((el.dataset.query || href).includes("partners")) {
+    return track("partner_enquiry", { location: placeOf(el), page: PAGE });
+  }
 
   // Email links
   if (el.dataset.email || href.startsWith("mailto:")) {
