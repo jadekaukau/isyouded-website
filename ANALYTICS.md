@@ -8,6 +8,7 @@ Property: **G-5WCCEEQ6JL**. The Google tag is on every page; the events below ar
 | `signup_click` | Someone clicks a "Join the waitlist" or "Subscribe to newsletter" button | `list`, `location` (menu, about, cta, answer…), `page` |
 | `signup_abandon` | Someone opens the waitlist or newsletter form but closes it without signing up | `list` |
 | `partner_enquiry` | Click on the partners email link on the Partners page | `location`, `page` |
+| `links_click` | A button on isyouded.com/links (the Instagram bio page) is tapped | `link`: website, faq, partners, logo |
 | `social_click` | Click on Instagram or LinkedIn | `platform`, `location`, `page` |
 | `email_click` | Click on the hello@ email link | `location`, `page` |
 | `cta_click` | Click on a button to the FAQ or Help page ("Have a question?") | `cta` (button text), `location`, `page` |
@@ -33,7 +34,7 @@ Add these to links you share, so GA shows where visitors came from:
 
 | Where | Link |
 |---|---|
-| Instagram bio | `https://isyouded.com/?utm_source=instagram&utm_medium=social&utm_campaign=bio` |
+| Instagram bio | `isyouded.com/links` (every visit to that page is from your bio) |
 | Instagram story / post | `https://isyouded.com/?utm_source=instagram&utm_medium=social&utm_campaign=<post-name>` |
 | LinkedIn | `https://isyouded.com/?utm_source=linkedin&utm_medium=social&utm_campaign=<post-name>` |
 | Resend emails | `https://isyouded.com/?utm_source=resend&utm_medium=email&utm_campaign=<email-name>` |

@@ -409,6 +409,11 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  // Buttons on the Instagram links page (isyouded.com/links)
+  if (el.dataset.link) {
+    return track("links_click", { link: el.dataset.link, page: PAGE });
+  }
+
   const href = el.getAttribute("href") || "";
 
   // Social links
