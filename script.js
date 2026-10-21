@@ -397,7 +397,12 @@ function placeOf(el) {
   return "page";
 }
 
-const PAGE = (location.pathname.split("/").pop() || "index.html").replace(".html", "") || "index";
+const PAGE = (() => {
+  const parts = location.pathname.split("/").filter(Boolean);
+  const last = (parts.pop() || "index.html").replace(".html", "") || "index";
+  // Articles live in /articles/, so name them "articles/<slug>" (the list page is "articles/index")
+  return parts.includes("articles") || last === "articles" ? `articles/${last === "articles" ? "index" : last}` : last;
+})();
 
 document.addEventListener("click", (event) => {
   const el = event.target.closest("a, button");
@@ -407,6 +412,11 @@ document.addEventListener("click", (event) => {
   if (el.dataset.signup) {
     track("signup_click", { list: el.dataset.signup, location: placeOf(el), page: PAGE });
     return;
+  }
+
+  // Article cards on the Articles page
+  if (el.dataset.article) {
+    return track("article_click", { article: el.dataset.article, page: PAGE });
   }
 
   // Buttons on the Instagram links page (isyouded.com/links)
@@ -480,6 +490,19 @@ document.querySelectorAll("input.search").forEach((input) => {
     }, 1200);
   });
 });
+
+// Article read: fires once when someone scrolls to the end of an article
+(function articleRead() {
+  const end = document.querySelector(".article-cta");
+  if (!end || !("IntersectionObserver" in window)) return;
+  const seen = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      track("article_read", { article: PAGE.replace("articles/", ""), page: PAGE });
+      seen.disconnect();
+    }
+  });
+  seen.observe(end);
+})();
 
 /* =========================
    EMAIL LINKS
