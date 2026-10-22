@@ -39,6 +39,9 @@ def head(title, description, canonical, extra=""):
   <meta property="og:description" content="{html.escape(description)}" />
   <meta property="og:url" content="{canonical}" />
   <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="DED." />
+  <meta property="og:image" content="{SITE}/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#F96CAE">
 {extra}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -209,6 +212,20 @@ def build_index(articles):
     (ROOT / "index.html").write_text(page)
 
 
+def build_sitemap(articles):
+    """Writes sitemap.xml in the website folder, listing every public page and article."""
+    pages = ["/", "/articles/", "/faq", "/help", "/partners", "/privacy", "/terms"]
+    newest = max((a.get("updated", a["date"]) for a in articles), default="")
+    urls = [f"  <url><loc>{SITE}{p}</loc></url>" for p in pages]
+    urls[1] = f"  <url><loc>{SITE}/articles/</loc><lastmod>{newest}</lastmod></url>"
+    urls += [
+        f"  <url><loc>{SITE}/articles/{a['slug']}</loc><lastmod>{a.get('updated', a['date'])}</lastmod></url>"
+        for a in articles
+    ]
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n"
+    (ROOT.parent / "sitemap.xml").write_text(xml)
+
+
 def sources_html(raw):
     items = []
     for line in raw.strip().splitlines():
@@ -235,4 +252,5 @@ if __name__ == "__main__":
     for a in articles:
         build_article(a)
     build_index(articles)
+    build_sitemap(articles)
     print("built", [a["slug"] for a in articles])
