@@ -42,3 +42,15 @@ Add these to links you share, so GA shows where visitors came from:
 | Resend emails | `https://isyouded.com/?utm_source=resend&utm_medium=email&utm_campaign=<email-name>` |
 
 Keep everything lowercase, with underscores instead of spaces.
+
+## Where each sign-up came from (Tally hidden fields)
+
+The site remembers how each visitor first found DED. and sends it to Tally with their sign-up. For it to be saved, both Tally forms (waitlist and DED.line) need these **hidden fields** (in the Tally editor, type `/hidden` and add each name exactly):
+
+`source`, `medium`, `campaign`, `landing_page`, `signup_button`, `signup_page`
+
+`source` is things like `instagram`, `resend`, `google`, `linkedin` or `direct`. Visits to /links count as `instagram` / `bio`.
+
+## Microsoft Clarity
+
+Heatmaps and visit recordings for the website only (never the app). To turn it on, put the Clarity project id in `CLARITY_ID` at the top of `script.js`. In Clarity's settings, set masking to **Strict**.

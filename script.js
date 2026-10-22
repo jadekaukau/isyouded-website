@@ -12,6 +12,57 @@ const TALLY_FORMS = {
   dedline: "o96ZVM",
 };
 
+/* Microsoft Clarity project id (heatmaps and visit recordings). Leave empty to turn it off. */
+const CLARITY_ID = "";
+
+/* =========================
+   WHERE VISITORS CAME FROM
+   Remembers how someone first found DED. (Instagram, an email, Google…)
+   so it can be saved with their waitlist sign-up in Tally.
+========================= */
+const SOURCE = (() => {
+  const params = new URLSearchParams(location.search);
+  const ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+  const internal = ref === location.hostname.replace(/^www\./, "");
+
+  let source = params.get("utm_source") || "";
+  let medium = params.get("utm_medium") || "";
+  const campaign = params.get("utm_campaign") || "";
+
+  if (!source && /\/links(\.html)?\/?$/.test(location.pathname)) {
+    source = "instagram";
+    medium = "bio";
+  }
+  if (!source && ref && !internal) {
+    if (/instagram|facebook|fb\.|messenger/.test(ref)) source = "instagram";
+    else if (/linkedin|lnkd/.test(ref)) source = "linkedin";
+    else if (/google\./.test(ref)) source = "google";
+    else if (/bing|duckduckgo|yahoo|chatgpt|perplexity/.test(ref)) source = ref;
+    else source = ref;
+    medium = medium || "referral";
+  }
+
+  const current = {
+    source,
+    medium,
+    campaign,
+    landing_page: location.pathname,
+  };
+
+  // Keep the first source we saw (first touch); only fill it in if we have something new
+  let first = null;
+  try {
+    first = JSON.parse(localStorage.getItem("ded_source") || "null");
+    // Replace an earlier "direct" visit if we now know where they really came from
+    if (!first || (first.source === "direct" && source)) {
+      first = { ...current, source: source || "direct", medium: medium || "none" };
+      localStorage.setItem("ded_source", JSON.stringify(first));
+    }
+  } catch (_) {}
+
+  return first || { ...current, source: source || "direct", medium: medium || "none" };
+})();
+
 /* =========================
    SOUNDTRACK
 ========================= */
@@ -301,6 +352,7 @@ document.addEventListener("click", (event) => {
     document.body.classList.remove("menu-open");
     let submitted = false;
     window.Tally.openPopup(tallyId, {
+      hiddenFields: { ...SOURCE, signup_button: placeOf(trigger), signup_page: PAGE },
       layout: "modal",
       width: 520,
       overlay: true,
@@ -331,6 +383,27 @@ document.addEventListener("click", (event) => {
 
   // 3. Otherwise the link's own href (the Tally page, or an email for DED.line).
 });
+
+// If Tally's pop-up can't load, the button opens the Tally page instead, so add the details to those links too
+document.querySelectorAll('a[href*="tally.so/r/"]').forEach((link) => {
+  try {
+    const url = new URL(link.href);
+    Object.entries(SOURCE).forEach(([k, v]) => v && url.searchParams.set(k, v));
+    link.href = url.toString();
+  } catch (_) {}
+});
+
+/* =========================
+   MICROSOFT CLARITY (website only, never the app)
+========================= */
+if (CLARITY_ID) {
+  (function (c, l, a, r, i, t, y) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, "clarity", "script", CLARITY_ID);
+  window.clarity("set", "source", SOURCE.source);
+}
 
 /* =========================
    SEARCH + TOPIC FILTERS (FAQ, Help, Partners)

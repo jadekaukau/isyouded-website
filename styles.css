@@ -1315,3 +1315,11 @@ img {
 .article-table tbody tr:nth-child(even) td {
   background: #FFF0F6;
 }
+
+.legal-card h2 {
+  margin: 28px 0 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
