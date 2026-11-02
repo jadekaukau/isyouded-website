@@ -1231,6 +1231,12 @@ img {
   font-size: 1.02rem;
 }
 
+.callout.content-warning {
+  margin-top: 0;
+  border: 3px dashed var(--pink, #F96CAE);
+  background: #FFF0F6;
+}
+
 .article-cta {
   margin-top: 30px;
   padding: 28px 26px;
@@ -1314,4 +1320,31 @@ img {
 
 .article-table tbody tr:nth-child(even) td {
   background: #FFF0F6;
+}
+
+/* Tables of words rather than prices: no bold last column, and tighter on phones */
+.article-table.text-table td:last-child {
+  width: auto;
+  font-weight: 400;
+}
+
+.article-table.text-table td:first-child {
+  font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .article-table.text-table {
+    font-size: 0.88rem;
+  }
+
+  .article-table.text-table th,
+  .article-table.text-table td {
+    padding: 10px 8px;
+    overflow-wrap: break-word;
+  }
+
+  .article-table.text-table td:first-child,
+  .article-table.text-table th:first-child {
+    width: 30%;
+  }
 }
