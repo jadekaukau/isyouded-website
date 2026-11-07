@@ -153,25 +153,78 @@ img {
 
 .sound-toggle {
   position: fixed;
-  right: 14px;
-  bottom: 14px;
+  right: 16px;
+  bottom: 16px;
   z-index: 50;
-  padding: 9px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 18px 10px 10px;
   border: var(--line);
   border-radius: 999px;
-  background: var(--blue);
+  background: var(--white);
   color: var(--black);
   font: inherit;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 800;
   line-height: 1;
   cursor: pointer;
   box-shadow: 4px 4px 0 var(--black);
-  transition: transform 140ms ease;
+  transition: transform 140ms ease, background-color 140ms ease;
 }
 
 .sound-toggle:hover {
   transform: translateY(-2px);
+}
+
+.sound-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  background: var(--blue);
+  font-size: 1rem;
+  position: relative;
+}
+
+/* Off: a strike through the note so it reads as muted at a glance */
+.sound-toggle:not(.is-on) .sound-icon::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background: var(--black);
+  transform: rotate(-45deg);
+}
+
+.sound-toggle.is-on {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.sound-toggle.is-on .sound-icon {
+  background: var(--white);
+  color: var(--black);
+  animation: sound-bob 1.2s ease-in-out infinite;
+}
+
+@keyframes sound-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-toggle.is-on .sound-icon { animation: none; }
+}
+
+@media (max-width: 560px) {
+  .sound-toggle {
+    font-size: 0.85rem;
+    min-height: 44px;
+  }
 }
 
 /* =========================
