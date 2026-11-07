@@ -19,43 +19,107 @@ const audio = document.getElementById("ded-audio");
 const toggle = document.getElementById("sound-toggle");
 
 if (audio && toggle) {
-  audio.volume = 0.35;
+  // The soundtrack only lives on the home page. It plays for 1 minute at most,
+  // then fades out. If someone turns it off, or has already heard their minute,
+  // it won't autoplay again for the rest of their visit.
+  const VOLUME = 0.35;
+  const MAX_PLAY_MS = 60 * 1000;
+  const FADE_MS = 3000;
+  const STORE_KEY = "ded-soundtrack";
+
+  const label = toggle.querySelector(".sound-label");
+  let playedMs = 0;
+  let startedAt = 0;
+  let stopTimer = null;
+  let fadeTimer = null;
+
+  const remember = (value) => {
+    try { sessionStorage.setItem(STORE_KEY, value); } catch (e) {}
+  };
+  const recalled = () => {
+    try { return sessionStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  };
+
+  audio.volume = VOLUME;
 
   const updateButton = () => {
     const isPlaying = !audio.paused;
-
-    toggle.textContent = isPlaying ? "♫ ON" : "♫ OFF";
-    toggle.setAttribute(
-      "aria-label",
-      isPlaying ? "Pause soundtrack" : "Play soundtrack"
-    );
+    toggle.classList.toggle("is-on", isPlaying);
+    toggle.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+    toggle.setAttribute("aria-label", isPlaying ? "Turn music off" : "Turn music on");
+    if (label) label.textContent = isPlaying ? "Music on · tap to stop" : "Music off";
   };
+
+  const clearTimers = () => {
+    clearTimeout(stopTimer);
+    clearInterval(fadeTimer);
+    stopTimer = null;
+    fadeTimer = null;
+  };
+
+  const fadeOutAndStop = () => {
+    clearTimers();
+    const steps = 30;
+    let step = 0;
+    fadeTimer = setInterval(() => {
+      step += 1;
+      audio.volume = Math.max(0, VOLUME * (1 - step / steps));
+      if (step >= steps) {
+        clearInterval(fadeTimer);
+        fadeTimer = null;
+        audio.pause();
+        audio.volume = VOLUME;
+        playedMs = 0;
+        audio.currentTime = 0;
+        remember("done");
+      }
+    }, FADE_MS / steps);
+  };
+
+  audio.addEventListener("play", () => {
+    audio.volume = VOLUME;
+    startedAt = Date.now();
+    const left = Math.max(0, MAX_PLAY_MS - playedMs - FADE_MS);
+    clearTimers();
+    stopTimer = setTimeout(fadeOutAndStop, left);
+    updateButton();
+  });
+
+  audio.addEventListener("pause", () => {
+    if (startedAt) playedMs += Date.now() - startedAt;
+    startedAt = 0;
+    clearTimers();
+    updateButton();
+  });
 
   toggle.addEventListener("click", async () => {
     if (audio.paused) {
+      // Turning it back on gives a fresh minute
+      playedMs = 0;
+      remember("on");
       try {
         await audio.play();
       } catch (error) {
         console.error("Audio could not be played:", error);
       }
     } else {
+      remember("off");
       audio.pause();
     }
-
     updateButton();
   });
 
-  audio.addEventListener("play", updateButton);
-  audio.addEventListener("pause", updateButton);
-  audio.addEventListener("ended", updateButton);
-
+  // Autoplay once per visit, unless they've switched it off or already heard it.
+  // Browsers often block this until the visitor taps something: the button stays "Music off".
   window.addEventListener("load", async () => {
-    try {
-      await audio.play();
-    } catch (error) {
-      // Autoplay may be blocked until the visitor clicks the button.
+    const state = recalled();
+    if (state !== "off" && state !== "done") {
+      try {
+        await audio.play();
+      } catch (error) {
+        // Autoplay blocked: the visitor can turn it on with the button.
+      }
     }
-
     updateButton();
   });
 
